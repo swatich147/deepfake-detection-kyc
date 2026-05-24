@@ -1,5 +1,55 @@
-/ai_service
-/backend
-/docs
-/infrastructure
-/ml_training
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+backend/src/db/
+backend/media/
+backend/staticfiles/
+
+# Node
+node_modules/
+frontend/dist/
+.npm
+*.tsbuildinfo
+
+# Environment & secrets
+.env
+.env.local
+*.pem
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Docker
+*.log
+
+# AI weights (large — download separately)
+ai_service/weights/*.pt
+ai_service/weights/*.onnx
+ai_service/weights/*.pth
+!ai_service/weights/.gitkeep
+
+# OS
+Thumbs.db

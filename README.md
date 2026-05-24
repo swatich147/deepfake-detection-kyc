@@ -150,39 +150,29 @@ docker compose exec backend python manage.py createsuperuser
 
 ---
 
-## Phase status (all demo-scoped)
+## Phase status (all phases)
 
-### Phase 1 — MVP ✅ (skipped further work)
+| Phase | Status |
+|-------|--------|
+| **1** MVP | ✅ Complete |
+| **2** AI pipeline | ✅ CPU demo |
+| **3** Hardening | ✅ Demo scope |
+| **4** Enhancements | ✅ Demo scope |
+| **5** Delivery | ✅ See [docs/plan/PHASE5_DELIVERY.md](docs/plan/PHASE5_DELIVERY.md) |
 
-Auth, video capture, WebSocket upload, mock AI, dashboard, Docker.
+---
 
-### Phase 2 — AI pipeline ✅ (skipped further work)
+## GitHub — 10 commits over 2 days
 
-Lip-sync heuristics, rPPG, ensemble scoring, CPU pipeline (`MOCK_INFERENCE=false`).
+**Full plan:** [docs/GITHUB_COMMIT_PLAN.md](docs/GITHUB_COMMIT_PLAN.md)
 
-### Phase 3 — Hardening ✅ (Docker demo version)
+| Day | Commits | Theme |
+|-----|---------|-------|
+| Day 1 | 1–5 | Scaffold → backend → frontend base |
+| Day 2 | 6–10 | AI → hardening → docs & CI |
 
-| Feature | Implementation |
-|---------|----------------|
-| Rate limiting | DRF throttles on session create + export |
-| Input validation | Session serializers |
-| GDPR consent | Checkbox before recording |
-| Admin panel | Django admin at `/admin/` |
-| JSON export | `/api/v1/sessions/{id}/export/` |
-| Webhooks | Optional POST if org webhook URL set |
-| Health checks | `/api/v1/health/`, Docker healthchecks |
-
-*Skipped (production-only): Terraform, JMeter load tests, AWS deploy.*
-
-### Phase 4 — Enhancements ✅ (Docker demo version)
-
-| Feature | Implementation |
-|---------|----------------|
-| Challenge-response | Random movement / blink / read-text |
-| Anti-replay | Nonce + expiry on challenges |
-| Model versioning | `ai_service/model_config.yaml` + `GET /models` |
-
-*Skipped (production-only): TensorRT, continuous training, A/B testing.*
+> **Fix applied:** `.gitignore` no longer excludes `backend/`, `ai_service/`, or `docs/`.  
+> Reset git history and follow the commit plan before pushing.
 
 ---
 

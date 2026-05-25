@@ -72,7 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         on_delete=models.CASCADE, 
         related_name='users'
     )
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='viewer')

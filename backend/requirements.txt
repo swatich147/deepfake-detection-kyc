@@ -1,0 +1,24 @@
+# Django Backend Requirements (demo/local — no Redis/Celery)
+Django==5.0.6
+djangorestframework==3.15.1
+djangorestframework-simplejwt==5.3.1
+django-cors-headers==4.3.1
+django-environ==0.11.2
+django-filter==24.2
+channels==4.1.0
+daphne==4.1.2
+
+# Utils
+Pillow==10.3.0
+requests==2.32.3
+
+# Testing
+pytest==8.2.1
+pytest-django==4.8.0
+pytest-cov==5.0.0
+factory-boy==3.3.0
+
+# Dev
+black==24.4.2
+isort==5.13.2
+flake8==7.0.0

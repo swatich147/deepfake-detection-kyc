@@ -1,0 +1,36 @@
+# Model registry — Phase 4 versioning (demo; swap weights without code changes)
+version: "1.0.0-demo"
+pipeline: cpu-heuristic
+
+models:
+  face_detector:
+    name: retinaface-buffalo_l
+    version: "0.7.3"
+    optional: true
+  deepfake_detector:
+    name: heuristic-cpu
+    version: "1.0.0"
+    weights: null
+  lipsync:
+    name: motion-audio-correlation
+    version: "1.0.0"
+  rppg:
+    name: pos-simplified
+    version: "1.0.0"
+  ensemble:
+    name: weighted-v1
+    version: "1.0.0"
+    weights:
+      face_manipulation: 0.35
+      lipsync: 0.25
+      rppg: 0.20
+      av_correlation: 0.10
+      consistency: 0.10
+
+modes:
+  mock:
+    description: Random scores for reliable live demos
+    env: MOCK_INFERENCE=true
+  cpu:
+    description: OpenCV + heuristics on recorded video
+    env: MOCK_INFERENCE=false

@@ -132,13 +132,16 @@ class InferencePipeline:
             candidates = [
                 path,
                 Path('/app/media') / path.name,
+                Path('/app/src/media') / path.name,
                 Path('/app/media/chunks') / path.parent.name / path.name if path.parent.name else path,
+                Path('/app/src/media/chunks') / path.parent.name / path.name if path.parent.name else path,
             ]
-            # Full path like .../chunks/<session_id>/0000.webm
             if 'chunks' in str(path):
                 parts_idx = str(path).split('chunks')
                 if len(parts_idx) > 1:
-                    candidates.append(Path('/app/media/chunks') / parts_idx[-1].lstrip('/'))
+                    rel = parts_idx[-1].lstrip('/')
+                    candidates.append(Path('/app/media/chunks') / rel)
+                    candidates.append(Path('/app/src/media/chunks') / rel)
 
             resolved = next((c for c in candidates if c.is_file()), None)
             if resolved:

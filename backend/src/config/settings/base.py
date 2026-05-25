@@ -17,8 +17,8 @@ env = environ.Env(
 
 # SECURITY
 SECRET_KEY = env('SECRET_KEY', default='django-insecure-change-me-in-production')
-DEBUG = env('DEBUG')
-ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+DEBUG = env.bool('DEBUG', default=False)
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 
 # Application definition
 INSTALLED_APPS = [
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'channels',
+    'django_filters',
     # Local apps
     'apps.users',
     'apps.kyc_sessions',

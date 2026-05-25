@@ -9,16 +9,16 @@ services:
     restart: unless-stopped
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.demo
+      - DEBUG=True
       - SECRET_KEY=${SECRET_KEY:-demo-secret-key-change-me}
       - AI_SERVICE_URL=http://ai_service:8080
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-*}
       - CORS_ALLOWED_ORIGINS=http://localhost,http://127.0.0.1
-      - CORS_ALLOW_ALL_ORIGINS=true
     ports:
       - "8000:8000"
     volumes:
-      - backend_media:/app/media
-      - backend_db:/app/db
+      - backend_media:/app/src/media
+      - backend_db:/app/src/db
     depends_on:
       ai_service:
         condition: service_healthy
@@ -29,9 +29,13 @@ services:
       retries: 5
       start_period: 40s
     command: >
-      sh -c "mkdir -p /app/db /app/media &&
+      sh -c "set -e &&
+             mkdir -p /app/src/db /app/src/media &&
+             echo 'Running migrations...' &&
              python manage.py migrate --noinput &&
+             echo 'Creating demo user...' &&
              python manage.py setup_demo --noinput &&
+             echo 'Starting Daphne...' &&
              daphne -b 0.0.0.0 -p 8000 config.asgi:application"
 
   ai_service:
@@ -47,7 +51,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - backend_media:/app/media:ro
+      - backend_media:/app/src/media:ro
       - ai_weights:/app/weights
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health')"]

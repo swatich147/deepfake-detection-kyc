@@ -1,0 +1,16 @@
+# Optional full ML stack — NOT used by default Docker demo build
+# Requires Dockerfile: apt-get install build-essential g++
+# May fail on ARM without prebuilt wheels; use MOCK_INFERENCE=true for demo instead
+
+-r requirements.txt
+
+torch==2.2.2
+torchvision==0.17.2
+insightface==0.7.3
+onnxruntime==1.17.3
+librosa==0.10.2
+soundfile==0.12.1
+scipy==1.13.0
+scikit-learn==1.4.2
+httpx==0.27.0
+Pillow==10.3.0

@@ -25,17 +25,16 @@ Data persists in Docker volumes: `backend_db` (SQLite), `backend_media` (video c
 3. **Webcam + microphone** (browser will ask permission)
 4. **Chrome or Edge** recommended (best WebRTC support)
 
-### Step 1 — Copy the project to the laptop
+### Step 1 — Clone the project
 
 Use any of:
 
 ```bash
-# USB / shared folder — copy the whole folder
-# OR git clone from your repo
-git clone <your-repo-url> deepfake-detection-kyc
+# git clone from your repo
+git clone deepfake-detection-kyc
 cd deepfake-detection-kyc
 
-# OR zip from your dev machine and unzip on the laptop
+
 ```
 
 ### Step 2 — Configure environment
@@ -51,7 +50,7 @@ Edit `.env` if needed:
 |----------|---------|----------------|
 | `MOCK_INFERENCE` | `true` | Set `false` for CPU analysis on real video |
 | `SECRET_KEY` | demo key | Change if demo is on a shared network |
-| `ALLOWED_HOSTS` | `*` | Keep `*` for LAN demo via laptop IP |
+| `ALLOWED_HOSTS` | `*` | Keep `*` for LAN via laptop IP |
 
 ### Step 3 — Start everything
 
@@ -77,25 +76,23 @@ curl http://localhost:8080/health
 
 ### Step 4 — Open the app
 
-On the **same laptop**:
-
 **http://localhost**
 
 From **another phone/laptop on the same WiFi** (optional):
 
-1. Find demo laptop IP:
+1. Find laptop IP:
    - Mac/Linux: `ip addr` or `ifconfig`
    - Windows: `ipconfig`
 2. Open **http://YOUR_LAPTOP_IP** (e.g. `http://192.168.1.42`)
 
-### Step 5 — Login and demo
+### Step 5 — Login
 
 | Field | Value |
 |-------|-------|
 | Email | `demo@example.com` |
 | Password | `demo12345` |
 
-**Demo flow:**
+**flow:**
 
 1. Dashboard → **+ New KYC Session**
 2. Accept **privacy consent** checkbox
@@ -107,12 +104,6 @@ From **another phone/laptop on the same WiFi** (optional):
 
 ```bash
 docker compose down
-```
-
-To wipe all data (fresh demo):
-
-```bash
-docker compose down -v
 ```
 
 ---

@@ -1,8 +1,7 @@
-# Deepfake Detection for Video KYC — Docker Demo
+# Deepfake Detection for Video KYC
 
-Run the **entire project in Docker** on your demo laptop. No local Python, Node, Redis, PostgreSQL, or AWS required.
+Run the **entire project through Docker**.
 
-**Cost: $0** — everything runs in 3 containers on one machine.
 
 ---
 
@@ -18,9 +17,7 @@ Data persists in Docker volumes: `backend_db` (SQLite), `backend_media` (video c
 
 ---
 
-## Run on your second laptop (step-by-step)
-
-### Prerequisites on the demo laptop
+### Prerequisites
 
 1. **Docker Desktop** (or Docker Engine + Compose plugin)
    - [Mac](https://docs.docker.com/desktop/setup/install/mac-install/) / [Windows](https://docs.docker.com/desktop/setup/install/windows-install/) / [Linux](https://docs.docker.com/engine/install/)
@@ -149,57 +146,3 @@ docker compose exec backend python manage.py createsuperuser
 ```
 
 ---
-
-## Phase status (all phases)
-
-| Phase | Status |
-|-------|--------|
-| **1** MVP | ✅ Complete |
-| **2** AI pipeline | ✅ CPU demo |
-| **3** Hardening | ✅ Demo scope |
-| **4** Enhancements | ✅ Demo scope |
-| **5** Delivery | ✅ See [docs/plan/PHASE5_DELIVERY.md](docs/plan/PHASE5_DELIVERY.md) |
-
----
-
-## GitHub — 10 commits over 2 days
-
-**Full plan:** [docs/GITHUB_COMMIT_PLAN.md](docs/GITHUB_COMMIT_PLAN.md)
-
-| Day | Commits | Theme |
-|-----|---------|-------|
-| Day 1 | 1–5 | Scaffold → backend → frontend base |
-| Day 2 | 6–10 | AI → hardening → docs & CI |
-
-> **Fix applied:** `.gitignore` no longer excludes `backend/`, `ai_service/`, or `docs/`.  
-> Reset git history and follow the commit plan before pushing.
-
----
-
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| Port 80 in use | Change frontend ports in `docker-compose.yml` to `"8081:80"` and open `http://localhost:8081` |
-| Camera blocked | Use `localhost` or `https`; allow camera in browser site settings |
-| WebSocket failed | Use app via port **80** (nginx proxies `/ws/`); don't open `:8000` directly for KYC |
-| Build fails on frontend | Run `docker compose build --no-cache frontend` |
-| Slow analysis | Keep `MOCK_INFERENCE=true` in `.env` for live demo |
-
----
-
-## Architecture
-
-```
-Browser → nginx:80 (frontend)
-            ├─ /api/*  → backend:8000
-            └─ /ws/*   → backend:8000 (WebSocket)
-Backend → ai_service:8080 (analysis)
-Backend → SQLite + /app/media (chunks)
-```
-
----
-
-## License
-
-Proprietary — project / academic demo use.
